@@ -21,3 +21,8 @@ $npm start
 ## Author 
 👨🏻‍💻 Jeel Patel
 
+## :scroll: LICENSE
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+
