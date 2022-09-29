@@ -19,5 +19,5 @@ $npm start
 ``` 
 
 ## Author 
-Jeel Patel 👨🏻‍💻 (NEUID - 002928075)
+👨🏻‍💻 Jeel Patel
 
