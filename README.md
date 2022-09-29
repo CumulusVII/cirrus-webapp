@@ -1,4 +1,4 @@
-# :cloud: Networks Structures and Cloud Computing 
+# :cloud: Cloud-Cirrus
 
 ## :wrench: Prerequisites
 
