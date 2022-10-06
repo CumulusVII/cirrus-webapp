@@ -1,0 +1,27 @@
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+// CUSTOM ROUTES
+const healthzRoute = require("./src/routes/healthz");
+const userRoute = require("./src/routes/user");
+const db = require("./src/models");
+
+
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+//MIDDLEWARES
+app.use("/", healthzRoute);
+app.use("/", userRoute);
+
+// PORT
+const PORT = 3000;
+db.sequelize.sync();
+// STARTING A SERVER
+app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
+
+module.exports = app;
