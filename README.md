@@ -3,23 +3,30 @@
 ## :wrench: Prerequisites
 
 This project requires NodeJS, NPM, local Postgresql server set up.
-## :hammer: Build
+## :hammer: Build Instructions
 
 Start with cloning this repo on your local machine:
 
-1. Clone this repo to local. 
-2. cd webapp
-3. To install and set up the dependencies, run
+1. Clone this repo to local.
 ```
-$npm install
+git@github.com:jeeltpatel/webapp.git
 ```
-4. To Start the application, run
-```   
-$npm start   
-``` 
 
-## Author 
-👨🏻‍💻 Jeel Patel
+2. Start Development
+```
+$cd webapp
+npm install
+```
+3. To Start the application, run
+```   
+npm start   
+``` 
+4. View your site
+
+The site is now running at `http://localhost:3000`
+
+## 👨🏻‍💻 Author 
+ Jeel Patel
 
 ## :scroll: LICENSE
 
