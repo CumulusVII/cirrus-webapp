@@ -25,12 +25,6 @@ npm start
 
 The site is now running at `http://localhost:3000`
 
-## Postman
-
-```
-POST : http://localhost:8080/v1/user/
-```
-
 ## 👨🏻‍💻 Author 
  Jeel Patel
 
