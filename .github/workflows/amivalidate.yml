@@ -12,8 +12,8 @@ jobs:
 
       - name: Step 2 - zip all the webService files
         run: |
-          zip -r webservice.zip ./
-          pwd ./webservice
+          zip -r webapp.zip ./
+          pwd ./webapp
       - name: Step 3 - Packer Init
         uses: hashicorp/packer-github-actions@master
         with:
