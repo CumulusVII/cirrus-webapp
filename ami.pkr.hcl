@@ -22,14 +22,16 @@ variable "subnet_id" {
   default     = "subnet-01e4cf39ebbe4747f"
 }
 
+
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "ec2" {
   region          = "${var.aws_region}"
   ami_name        = "csye6225_commit_SHA"
-  ami_description = "EC2 AMI for CSYE 6225 built by sydrawat"
+  ami_description = "EC2 AMI for CSYE 6225 built by jeelpatel"
   ami_regions = [
     "us-east-1",
   ]
+  ami_users = [603832434033]
 
   aws_polling {
     delay_seconds = 120
@@ -54,8 +56,8 @@ build {
 
   # https://www.packer.io/docs/provisioners/file#uploading-files-that-don-t-exist-before-packer-starts
   provisioner "file" {
-    source      = "webapp.zip" # path in local system to a .tar file
-    destination = "~/webapp.zip"  # path in the AMI to store the webapp
+    source      = "../webapp.zip"   # path in local system to a .tar file
+    destination = "~/webapp.zip" # path in the AMI to store the webapp
   }
 
   provisioner "shell" {
