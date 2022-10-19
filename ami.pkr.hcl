@@ -56,7 +56,7 @@ build {
 
   # https://www.packer.io/docs/provisioners/file#uploading-files-that-don-t-exist-before-packer-starts
   provisioner "file" {
-    source      = "../webapp.zip"   # path in local system to a .tar file
+    source      = "webapp.zip"   # path in local system to a .tar file
     destination = "~/webapp.zip" # path in the AMI to store the webapp
   }
 
