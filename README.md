@@ -1,29 +1,36 @@
-# :cloud: cirrus-webapp  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+# :cloud: cirrus-webapp [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 ## :wrench: Prerequisites
 
 This project requires NodeJS, NPM, local Postgresql server set up.
+
 ## :hammer: Build Instructions
 
 Start with cloning this repo on your local machine:
 
 1. Clone this repo to local.
+
 ```
 git@github.com:jeeltpatel/webapp.git
 ```
 
 2. Start Development
+
 ```
 $cd webapp
 npm install
 ```
+
 3. To Start the application, run
-```   
-npm start   
-``` 
+
+```
+npm start
+```
+
 4. Run your development Server
 
 The site is now running at `http://localhost:3000`
+
 ## :busstop: API Endpoints
 
 This cloud-native web appilcation RESTful API mirror the API mentioned in the [Swagger Docs here](https://app.swaggerhub.com/apis-docs/fall2022-csye6225/cloud-native-webapp/assignment-02#/Account).
@@ -31,21 +38,23 @@ This cloud-native web appilcation RESTful API mirror the API mentioned in the [S
 ### :lock: Authenticated Users
 
 - **GET** _/v1/account/{accountID}_ : Get the user account information
+
   - **AccountID:** String (Required)
   - **Response:** 200 _OK_, **Media Type:** Application/JSON
   - **Response:** 401 _Unauthorized_
   - **Response:** 403 _Forbidden_
 
 - **PUT** _/v1/account/{accountID}_ : Update the user's account information
+
   - **AccountID:** String (Required)
   - **Request Body:** Application/JSON (Required)
 
     ```json
-      {
-        "first_name": "Julia",
-        "last_name": "Summer",
-        "password": "somepassword"
-      }
+    {
+      "first_name": "Julia",
+      "last_name": "Summer",
+      "password": "somepassword"
+    }
     ```
 
   - **Response:** 204 _No Content_
@@ -56,15 +65,16 @@ This cloud-native web appilcation RESTful API mirror the API mentioned in the [S
 ### :unlock: Unauthenticated Users
 
 - `**POST** _/v1/account_ : Create a user account
+
   - **Request Body:** Application/JSON (Required)
 
     ```json
-      {
-        "first_name": "Julia",
-        "last_name": "Summer",
-        "password": "somepassword",
-        "username": "julia.summer@example.com"
-      }
+    {
+      "first_name": "Julia",
+      "last_name": "Summer",
+      "password": "somepassword",
+      "username": "julia.summer@example.com"
+    }
     ```
 
   - **Response:** 201 _User Created_
@@ -117,11 +127,6 @@ To run the test suite, use the following commands:
   npm run test
 ```
 
-## 👨🏻‍💻 Author 
- Jeel Patel
+## 👨🏻‍💻 Author
 
-## :scroll: LICENSE
-
-
-
-
+Jeel Patel
