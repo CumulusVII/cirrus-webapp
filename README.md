@@ -31,7 +31,7 @@ npm start
 
 The site is now running at `http://localhost:3000`
 
-## :busstop: API Endpoints
+## :triangular_flag_on_post: API Endpoints
 
 This cloud-native web appilcation RESTful API mirror the API mentioned in the [Swagger Docs here](https://app.swaggerhub.com/apis-docs/fall2022-csye6225/cloud-native-webapp/assignment-02#/Account).
 
@@ -126,7 +126,36 @@ To run the test suite, use the following commands:
   #for npm users
   npm run test
 ```
+## :pencil: Packer File to create AMI in AWS Console
 
+- To run the packer file format:
+
+```shell
+
+  packer fmt .
+```
+- To validate packer file:
+  
+```shell
+   packer validate <hcl_file>
+```
+- To build packer 
+```shell
+   packer build <hcl_file>
+```
+## :octocat: CI/CD Workflow
+
+- AMI template should be validate in the pull request status check and build when pull request is merged then it should automatically shared on prod account
+## :computer: Webapp runs on ubuntu
+
+- Go to the instance running and copy the public-ip-address
+  
+- Hit the API end point:
+   
+```shell
+   http:{public-ip-address:port}/{route-endpoint}
+```
+  
 ## 👨🏻‍💻 Author
 
 Jeel Patel

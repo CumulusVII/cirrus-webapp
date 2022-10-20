@@ -32,35 +32,3 @@ sudo cp ~/webapp/webapp.service /lib/systemd/system/
 
 
 
-# echo "############# Installing NodeJS #############"
-# curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - && sudo apt-get install -y nodejs
-# echo "############# Installing npm #############"
-# sudo apt-get install npm -y
-# echo "############# Checking for versions #############"
-# node --version
-# npm --version
-
-# echo "############# Print binary paths #############"
-# which npm
-# which node
-
-# echo "############# Installing PostgreSQL  #############"
-# sudo apt-get update
-# sudo apt-get install postgresql postgresql-contrib -y
-
-# echo "############# STARTING PSQL SERVICE ############## "
-# sudo systemctl start postgresql.service
-
-# echo "############# CREATE ROLE #############"
-# sudo su postgres <<EOF
-# createdb test;
-# psql -c “CREATE ROLE me WITH LOGIN PASSWORD ‘password’;”
-# EOF
-
-# echo "############# Unzip File #############"
-# tar xzf webapp.tar.gz
-
-# echo "############# Install NPM Packages #############"
-# cd webapp && npm install && npm run test
-
-

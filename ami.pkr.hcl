@@ -31,7 +31,7 @@ source "amazon-ebs" "ec2" {
   ami_regions = [
     "us-east-1",
   ]
-  ami_users = [603832434033]
+  ami_users = [372089346214,603832434033]
 
   aws_polling {
     delay_seconds = 120
