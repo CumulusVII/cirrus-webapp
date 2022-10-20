@@ -27,7 +27,7 @@ npm install
 npm start
 ```
 
-4. Run your development Server
+4. Run your development server
 
 The site is now running at `http://localhost:3000`
 
