@@ -19,7 +19,7 @@ variable "ssh_username" {
 variable "subnet_id" {
   type        = string
   description = "Subnet of the custom VPC created usinfga custom CloudFormation stack"
-  default     = "subnet-01e4cf39ebbe4747f"
+  default     = "subnet-0532dce11a4a0b3f3"
 }
 
 
