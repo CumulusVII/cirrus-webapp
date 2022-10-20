@@ -1,10 +1,10 @@
-name: Build AMI 
+name: Build AMI Test
 
 env:
   AWS_REGION: us-east-2
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   nodejs_tests:
@@ -13,12 +13,12 @@ jobs:
       matrix:
         node-version: [12.x, 14.x, 16.x]
     name: Install node application and run unit tests
-    steps:        
+    steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: "18.x"
       - name: Install dependencies
       - run: yarn
       - run: yarn test
@@ -28,7 +28,7 @@ jobs:
     needs: nodejs_tests
     runs-on: ubuntu-latest
     name: Build AWS Custom AMI with Node Application artifacts
-    steps: 
+    steps:
       - name: Step 1 - Checkout code from branch
         uses: actions/checkout@v2
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           zip -r webapp.zip ./
           pwd ./webapp
-      
+
       - name: Step 3 - Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -76,7 +76,7 @@ jobs:
     #       zip -r webapp.zip webapp
     #       cp webapp.zip webapp/packer/webapp.zip
     #       cd webapp/packer
-          
+
     #       curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     #       sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     #       sudo apt-get update && sudo apt-get install packer
