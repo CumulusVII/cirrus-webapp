@@ -28,7 +28,7 @@ which yarn
 which psql
 unzip /home/ubuntu/webapp.zip -d /home/ubuntu/webapp
 cd webapp && yarn && yarn test
-sudo cp ~/webapp/webservice.service /lib/systemd/system/
+sudo cp ~/webapp/webapp.service /lib/systemd/system/
 
 
 
