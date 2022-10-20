@@ -11,18 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [12.x, 14.x, 16.x, 18.x]
     name: Install node application and run unit tests
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - name: Step 1 - Checkout code from branch
+        uses: actions/checkout@v2
+
+      - name: Step 2 - Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: "18.x"
-      - name: Install dependencies
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies and Unit tests
       - run: yarn
       - run: yarn test
-      - run: yarn start
 
   packer_init_validate_build:
     needs: nodejs_tests
