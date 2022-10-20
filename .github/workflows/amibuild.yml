@@ -70,27 +70,3 @@ jobs:
           target: ami.pkr.hcl
         env:
           PACKER_LOG: 1
-    # name: create-ami
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - uses: actions/checkout@v2
-
-    #   - name: Build Artifact
-    #     run: |
-    #       cd ..
-    #       zip -r webapp.zip webapp
-    #       cp webapp.zip webapp/packer/webapp.zip
-    #       cd webapp/packer
-
-    #       curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-    #       sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-    #       sudo apt-get update && sudo apt-get install packer
-    #       packer build -var aws_access_key=$AWS_DEV_ACCESS_KEY -var aws_secret_key=$AWS_DEV_SECRET_KEY -var subnet_id=$AWS_DEV_SUBNET_ID -var aws_region=$AWS_REGION -var source_ami=$SOURCE_AMI -var prod_account_id=$AWS_PROD_ACCOUNT_ID -var ssh_username=$AWS_SSH_USERNAME ami.pkr.hcl
-    #     env:
-    #       PACKER_LOG: 1
-    #       AWS_DEV_ACCESS_KEY: ${{ secrets.AWS_DEV_ACCESS_KEY }}
-    #       AWS_DEV_SECRET_KEY: ${{ secrets.AWS_DEV_SECRET_KEY }}
-    #       AWS_DEV_SUBNET_ID: ${{ secrets.AWS_DEV_SUBNET_ID }}
-    #       AWS_REGION: ${{ secrets.AWS_REGION }}
-    #       SOURCE_AMI: ${{ secrets.SOURCE_AMI }}
-    #       AWS_PROD_ACCOUNT_ID: ${{ secrets.AWS_PROD_ACCOUNT_ID }}
