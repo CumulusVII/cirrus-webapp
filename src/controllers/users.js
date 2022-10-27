@@ -1,3 +1,4 @@
+require('dotenv').config()
 const bcrypt = require("bcrypt");
 const db = require("../models/index");
 const User = db.users;
@@ -62,44 +63,21 @@ exports.createUser = (req, res) => {
 };
 
 // get all user data
-exports.findAll = (req, res) => {
-  const id = req.query.id;
-  var condition = id ? { id: { [Op.iLike]: `%${id}%` } } : null;
+// exports.findAll = (req, res) => {
+//   const id = req.query.id;
+//   var condition = id ? { id: { [Op.iLike]: `%${id}%` } } : null;
 
-  User.findAll({ where: condition })
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Users.",
-      });
-    });
-};
+//   User.findAll({ where: condition })
+//     .then((data) => {
+//       res.status(200).send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving Users.",
+//       });
+//     });
+// };
 
-// finding single user information from database
-exports.findOne = (req, res) => {
-  sdcclient.increment("Finding User");
-  let startTime = new Date();
-  console.log("Finding one", res.locals);
-  User.findByPk(req.params.id)
-    .then((data) => {
-      res.status(200).send({
-        id: data.userId,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        username: data.username,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        error: err,
-        message: "Error retrieving user with id=" + id,
-      });
-    });
-  let endTime = new Date();
-  sdcclient.timing("User Find time", endTime - startTime);
-};
 
 // update user 
 exports.updateUser = (req, res) => {

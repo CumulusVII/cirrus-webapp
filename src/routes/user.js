@@ -5,12 +5,10 @@ const {
   createUser,
   updateUser,
   findAll,
-  findOne,
 } = require("../controllers/users");
 const auth = require("../middlewares/auth");
-
 // ROUTES
-router.get("/v1/account/all", findAll);
+// router.get("/v1/account/all", findAll);
 router.post("/v1/account/", createUser);
 router.get("/v1/account/:id", auth, fetchUserData);
 router.put("/v1/account/:id", auth, updateUser);
