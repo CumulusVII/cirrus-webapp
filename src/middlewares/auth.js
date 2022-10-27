@@ -1,6 +1,6 @@
-const db = require("../models/index");
+const db = require("../models");
+const bcrypt = require('bcrypt');
 const User = db.users;
-const bcrypt = require("bcrypt");
 
 module.exports = (req, res, next) => {
   var authHeader = req.headers.authorization;
@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
 
   var password = auth[1];
 
-  User.findOne({
+ let verified =  User.findOne({
     where: {
       username,
     },

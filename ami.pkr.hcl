@@ -19,7 +19,7 @@ variable "ssh_username" {
 variable "subnet_id" {
   type        = string
   description = "Subnet of the custom VPC created usinfga custom CloudFormation stack"
-  default     = "subnet-0532dce11a4a0b3f3"
+  default     = "subnet-01e4cf39ebbe4747f"
 }
 
 
@@ -31,7 +31,7 @@ source "amazon-ebs" "ec2" {
   ami_regions = [
     "us-east-1",
   ]
-  ami_users = [372089346214,603832434033]
+  ami_users = [603832434033]
 
   aws_polling {
     delay_seconds = 120

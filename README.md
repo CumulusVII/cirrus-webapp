@@ -1,60 +1,51 @@
-# :cloud: cirrus-webapp [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+# :cloud: cirrus-webapp  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
 ## :wrench: Prerequisites
 
 This project requires NodeJS, NPM, local Postgresql server set up.
-
 ## :hammer: Build Instructions
 
 Start with cloning this repo on your local machine:
 
 1. Clone this repo to local.
-
 ```
 git@github.com:jeeltpatel/webapp.git
 ```
 
 2. Start Development
-
 ```
 $cd webapp
 npm install
 ```
-
 3. To Start the application, run
-
-```
-npm start
-```
-
-4. Run your development server
+```   
+npm start   
+``` 
+4. Run your development Server
 
 The site is now running at `http://localhost:3000`
-
-## :triangular_flag_on_post: API Endpoints
+## :busstop: API Endpoints
 
 This cloud-native web appilcation RESTful API mirror the API mentioned in the [Swagger Docs here](https://app.swaggerhub.com/apis-docs/fall2022-csye6225/cloud-native-webapp/assignment-02#/Account).
 
 ### :lock: Authenticated Users
 
 - **GET** _/v1/account/{accountID}_ : Get the user account information
-
   - **AccountID:** String (Required)
   - **Response:** 200 _OK_, **Media Type:** Application/JSON
   - **Response:** 401 _Unauthorized_
   - **Response:** 403 _Forbidden_
 
 - **PUT** _/v1/account/{accountID}_ : Update the user's account information
-
   - **AccountID:** String (Required)
   - **Request Body:** Application/JSON (Required)
 
     ```json
-    {
-      "first_name": "Julia",
-      "last_name": "Summer",
-      "password": "somepassword"
-    }
+      {
+        "first_name": "Julia",
+        "last_name": "Summer",
+        "password": "somepassword"
+      }
     ```
 
   - **Response:** 204 _No Content_
@@ -65,16 +56,15 @@ This cloud-native web appilcation RESTful API mirror the API mentioned in the [S
 ### :unlock: Unauthenticated Users
 
 - `**POST** _/v1/account_ : Create a user account
-
   - **Request Body:** Application/JSON (Required)
 
     ```json
-    {
-      "first_name": "Julia",
-      "last_name": "Summer",
-      "password": "somepassword",
-      "username": "julia.summer@example.com"
-    }
+      {
+        "first_name": "Julia",
+        "last_name": "Summer",
+        "password": "somepassword",
+        "username": "julia.summer@example.com"
+      }
     ```
 
   - **Response:** 201 _User Created_
@@ -126,36 +116,12 @@ To run the test suite, use the following commands:
   #for npm users
   npm run test
 ```
-## :pencil: Packer File to create AMI in AWS Console
 
-- To run the packer file format:
+## 👨🏻‍💻 Author 
+ Jeel Patel
 
-```shell
+## :scroll: LICENSE
 
-  packer fmt .
-```
-- To validate packer file:
-  
-```shell
-   packer validate <hcl_file>
-```
-- To build packer 
-```shell
-   packer build <hcl_file>
-```
-## :octocat: CI/CD Workflow
 
-- AMI template should be validate in the pull request status check and build when pull request is merged then it should automatically shared on prod account
-## :computer: Webapp runs on ubuntu
 
-- Go to the instance running and copy the public-ip-address
-  
-- Hit the API end point:
-   
-```shell
-   http:{public-ip-address:port}/{route-endpoint}
-```
-  
-## 👨🏻‍💻 Author
 
-Jeel Patel(002928075)

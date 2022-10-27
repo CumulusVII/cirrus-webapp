@@ -13,10 +13,10 @@ sudo apt-get update && sudo apt-get install yarn -y
 sudo apt install zip unzip
 sudo apt-get install postgresql postgresql-contrib -y
 sudo systemctl start postgresql.service
-sudo su postgres <<EOF
-createdb fundb;
-psql -c "CREATE ROLE me WITH LOGIN PASSWORD 'password';"
-EOF
+# sudo su postgres <<EOF
+# createdb fundb;
+# psql -c "CREATE ROLE me WITH LOGIN PASSWORD 'password';"
+# EOF
 node --version
 npm --version
 yarn --version
@@ -27,8 +27,11 @@ which npm
 which yarn
 which psql
 unzip /home/ubuntu/webapp.zip -d /home/ubuntu/webapp
-cd webapp && yarn && yarn test
-sudo cp ~/webapp/webapp.service /lib/systemd/system/
-
+cd webapp && yarn
+sudo cp ~/webapp/webservice.service /lib/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable webservice
+sudo systemctl start webservice
+sudo systemctl status webservice
 
 

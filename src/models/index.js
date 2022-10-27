@@ -6,7 +6,13 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   port: 5432,
   dialect: dbConfig.dialect,
-  operatorAliases: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    }
+  },
+  
 });
 
 const db = {};
@@ -15,5 +21,6 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.users = require("./user")(sequelize, Sequelize);
+db.document = require("./image")(sequelize, Sequelize);
 
 module.exports = db;
