@@ -94,6 +94,24 @@ This cloud-native web appilcation RESTful API mirror the API mentioned in the [S
       readOnly: true
   }
 ```
+### :lock: Authenticated Users
+
+- **POST** _/v1/documents/_ : Post user document 
+  - **AccountID:** String (Required)
+  - **Response:** 201 _OK_, **Media Type:** Application/JSON
+  - **Response:** 400 _Bad Request_
+  - **Response:** 401 _Unauthorized_
+
+- **GET** _/v1/documents/{doc_id}/_ : Get user particular document  
+  - **AccountID:** String (Required)
+  - **Response:** 200 _OK_, **Media Type:** Application/JSON
+  - **Response:** 401 _Unauthorized_
+  - **Response:** 403 _BadRequest_
+- **DELETE** _/v1/documents/{doc_id}/_ : Delete user particular document  
+  - **AccountID:** String (Required)
+  - **Response:** 204 _NoContent_
+  - **Response:** 401 _Unauthorized_
+  - **Response:** 404 _NotFound_
 
 ## :test_tube: Testing
 
