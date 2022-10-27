@@ -1,5 +1,5 @@
 [Unit]
-Description=hello_env.js - making your environment variables rad
+Description=app.js - making your environment variables ready
 After=network.target
 
 [Service]
