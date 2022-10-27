@@ -3,7 +3,7 @@
 # https://gist.github.com/chrisidakwo/5f228cb0883efdcfae1a880f80b9744b
 ## This script installs all the dependencies on the AMI.
 
-sudo apt-get update
+sudo apt-get update -y
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&
 sudo apt-get install -y nodejs
 sudo apt-get update && sudo apt-get install npm -y
@@ -27,11 +27,6 @@ which npm
 which yarn
 which psql
 unzip /home/ubuntu/webapp.zip -d /home/ubuntu/webapp
-cd webapp && yarn
-sudo cp ~/webapp/webservice.service /lib/systemd/system/webservice.webservice
-sudo systemctl daemon-reload
-sudo systemctl enable webservice
-sudo systemctl start webservice
-sudo systemctl status webservice
+cd /home/ubuntu/webapp && yarn
 
 

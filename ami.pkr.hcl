@@ -58,7 +58,13 @@ build {
   provisioner "file" {
     source      = "webapp.zip"   # path in local system to a .tar file
     destination = "~/webapp.zip" # path in the AMI to store the webapp
+
   }
+  provisioner "file" {
+    source      = "webservice.service"   # path in local system to a .tar file
+    destination = "~/webservice.service" # path in the AMI to store the webapp
+}
+
 
   provisioner "shell" {
     environment_vars = [
@@ -66,7 +72,8 @@ build {
       "CHECKPOINT_DISABLE=1"
     ]
     scripts = [
-      "setup.sh"
+      "setup.sh",
+      "after.sh"
     ]
   }
 }
