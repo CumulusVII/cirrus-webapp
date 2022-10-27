@@ -28,7 +28,7 @@ which yarn
 which psql
 unzip /home/ubuntu/webapp.zip -d /home/ubuntu/webapp
 cd webapp && yarn
-sudo cp ~/webapp/webservice.service /lib/systemd/system/
+sudo cp ~/webapp/webservice.service /lib/systemd/system/webservice.webservice
 sudo systemctl daemon-reload
 sudo systemctl enable webservice
 sudo systemctl start webservice
