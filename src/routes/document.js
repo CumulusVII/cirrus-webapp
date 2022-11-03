@@ -9,7 +9,7 @@ const {
   listDocs,
   getDocumentDetails,
   deleteDoc,
-} = require('../controllers/image')
+} = require('../controllers/document')
 const { storage } = require('../middlewares/s3provider')
 const auth = require('../middlewares/auth')
 
