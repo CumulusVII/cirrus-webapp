@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 // CUSTOM ROUTES
 const healthzRoute = require("./src/routes/healthz");
 const userRoute = require("./src/routes/user");
-const imageRoute = require("./src/routes/image");
+const docRoute = require("./src/routes/document");
 const db = require("./src/models");
 const path = require('path')
 
@@ -19,7 +19,7 @@ app.use(
 //MIDDLEWARES
 app.use("/", healthzRoute);
 app.use("/", userRoute);
-app.use("/", imageRoute);
+app.use("/", docRoute);
 
 // PORT
 const PORT = 3000;
