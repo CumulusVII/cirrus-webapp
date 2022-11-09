@@ -166,9 +166,4 @@ To run the test suite, use the following commands:
 ```
 
 ## 👨🏻‍💻 Author 
- Jeel Patel
-
-
-
-
-
+ Jeel Patel (2928075)
