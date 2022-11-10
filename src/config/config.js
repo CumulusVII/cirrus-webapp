@@ -21,6 +21,8 @@ module.exports = {
             rejectUnauthorized: false,
           },
     },
+    METRICS_HOSTNAME: "localhost",
+    METRICS_PORT: 8125,
     timezone: '-05:00'
     }
 
