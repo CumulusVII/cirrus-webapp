@@ -1,26 +1,38 @@
-require('dotenv').config()
+require("dotenv").config();
 const bcrypt = require("bcrypt");
 const db = require("../models/index");
+const logger = require("../config/logger");
+const dbConfig = require("../config/config");
+const SDC = require("statsd-client");
+const sdc = new SDC({
+  host: dbConfig.METRICS_HOSTNAME,
+  port: dbConfig.METRICS_PORT,
+});
 const User = db.users;
-const SDCClient = require("statsd-client");
-const sdcclient = new SDCClient({ host: "localhost", port: 3000 });
 
 // create user in database
 exports.createUser = (req, res) => {
-  // Validate request
-  sdcclient.increment("Creating User");
-  let startTime = new Date();
-
+  sdc.increment("Creating User");
+  const { protocol, method, hostname, originalUrl } = req;
+  const headers = { ...req.headers };
+  const data = { protocol, method, hostname, originalUrl, headers };
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {
+    data,
+  });
   if (!req.body.first_name) {
+    logger.warn("Invalid request body for user object");
     res.status(400).send();
     return;
   } else if (!req.body.last_name) {
+    logger.warn("Invalid request body for user object");
     res.status(400).send();
     return;
   } else if (!req.body.username) {
+    logger.warn("Invalid request body for user object");
     res.status(400).send();
     return;
   } else if (!req.body.password) {
+    logger.warn("Invalid request body for user object");
     res.status(400).send();
     return;
   }
@@ -39,6 +51,7 @@ exports.createUser = (req, res) => {
         username: req.body.username,
         password: hash,
       };
+      logger.info("Creating new user " + req.body.username);
       User.create(userObject)
         .then((data) => {
           console.log(data.id);
@@ -59,36 +72,26 @@ exports.createUser = (req, res) => {
     }
   });
   let endTime = new Date();
-  sdcclient.timing("User creation time", endTime - startTime);
 };
 
-// get all user data
-// exports.findAll = (req, res) => {
-//   const id = req.query.id;
-//   var condition = id ? { id: { [Op.iLike]: `%${id}%` } } : null;
-
-//   User.findAll({ where: condition })
-//     .then((data) => {
-//       res.status(200).send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while retrieving Users.",
-//       });
-//     });
-// };
-
-
-// update user 
+// update user
 exports.updateUser = (req, res) => {
-  sdcclient.increment("Updating User");
-  let startTime = new Date();
+  sdc.increment("Updating User");
+  const { protocol, method, hostname, originalUrl } = req;
+  const headers = { ...req.headers };
+  const data = { protocol, method, hostname, originalUrl, headers };
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {
+    data,
+  });
+
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) {
+      logger.error("Invalid request body for user object");
       res.status(400).json({
         message: "Choose a user ID to update",
       });
     } else if (req.params.id == null) {
+      logger.error("Invalid request body for user object");
       res.status(400).json({
         message: "Choose a user ID to update",
       });
@@ -96,18 +99,21 @@ exports.updateUser = (req, res) => {
       const id = req.params.id;
 
       if (req.body.username) {
+        logger.error("Invalid request body for user object");
         res.status(400).send({
           message: "Username cannot be updated",
         });
         return;
       }
       if (req.body.account_created) {
+        logger.error("Invalid request body for user object");
         res.status(400).send({
           message: "account_created cannot be updated",
         });
         return;
       }
       if (req.body.account_updated) {
+        logger.error("Invalid request body for user object");
         res.status(400).send({
           message: "account_updated cannot be updated",
         });
@@ -135,6 +141,7 @@ exports.updateUser = (req, res) => {
           }
         })
         .catch((err) => {
+          logger.warn("Internal Server Error");
           res.status(500).send({
             message: "Error updating User with id=" + id,
           });
@@ -142,20 +149,22 @@ exports.updateUser = (req, res) => {
     }
   });
   let endTime = new Date();
-  sdcclient.timing("User Update time", endTime - startTime);
 };
 
 // finding user information from database
 exports.fetchUserData = async (req, res) => {
-  sdcclient.increment("Finding Data");
-  let startTime = new Date();
+  sdc.increment("Finding Data");
+  const { protocol, method, hostname, originalUrl } = req;
+  const headers = { ...req.headers };
+  const data = { protocol, method, hostname, originalUrl, headers };
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {
+    data,
+  });
   let result = await User.findOne({
     where: {
       username: global.username,
     },
   });
-  let endTime = new Date();
-  sdcclient.timing("Get User Data time", endTime - startTime);
   res.status(200).send({
     id: result.id,
     first_name: result.first_name,
@@ -165,4 +174,3 @@ exports.fetchUserData = async (req, res) => {
     account_updated: result.account_updated,
   });
 };
-

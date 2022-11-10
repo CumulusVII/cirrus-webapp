@@ -1,19 +1,20 @@
 const { v4: uuidv4 } = require("uuid");
-
-const SDCClient = require("statsd-client");
-const dbConfig = require("../config/config");
+const logger = require("../config/logger");
+const dbConfig = require('../config/config');
+const SDC = require('statsd-client');
+const sdc = new SDC({host: dbConfig.METRICS_HOSTNAME, port: dbConfig.METRICS_PORT});
 const { s3Uploadv2, s3Deletev2 } = require("../middlewares/s3provider");
 const db = require("../models");
 
 const User = db.users;
 const Document = db.document;
 
-const sdcclient = new SDCClient({
-  host: dbConfig.HOST,
-  port: dbConfig.PORT,
-});
-
 const uploadDoc = async (req, res) => {
+  sdc.increment("Uploading Documents");
+  const {protocol,method,hostname,originalUrl} = req
+  const headers = {...req.headers}
+  const data = {protocol,method,hostname,originalUrl,headers}
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {data});
   try {
     const userData = await User.findOne({
       where: {
@@ -21,7 +22,7 @@ const uploadDoc = async (req, res) => {
       },
     });
     const { id } = userData;
-
+    logger.info("Invalid request body for user object");
     if (req.files.length === 0)
       return res.status(403).send("check the file to upload!");
     const file = req.files[0].originalname;
@@ -33,6 +34,7 @@ const uploadDoc = async (req, res) => {
       },
     });
     if (exists) {
+      logger.info("File Already Exists");
       return res.status(403).send("File Already Exists");
     }
     const results = await s3Uploadv2(req.files);
@@ -65,6 +67,12 @@ const uploadDoc = async (req, res) => {
 
 
 const listDocs = async (req, res) => {
+  sdc.increment("List Documents");
+
+  const {protocol,method,hostname,originalUrl} = req
+  const headers = {...req.headers}
+  const data = {protocol,method,hostname,originalUrl,headers}
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`,{data});
   try {
     const userData = await User.findOne({
       where: {
@@ -97,6 +105,11 @@ const listDocs = async (req, res) => {
 
 
 const getDocumentDetails = async (req, res) => {
+  sdc.increment("Get Documents Details");
+  const {protocol,method,hostname,originalUrl} = req
+  const headers = {...req.headers}
+  const data = {protocol,method,hostname,originalUrl,headers}
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {data});
   try {
     const userData = await User.findOne({
       where: {
@@ -125,6 +138,11 @@ const getDocumentDetails = async (req, res) => {
 };
 
 const deleteDoc = async (req, res) => {
+  sdc.increment("Delete Documents");
+  const {protocol,method,hostname,originalUrl} = req
+  const headers = {...req.headers}
+  const data = {protocol,method,hostname,originalUrl,headers}
+  logger.info(`Request for ${method} ${protocol}://${hostname}${originalUrl}`, {data});
   try {
     const userData = await User.findOne({
       where: {
@@ -151,6 +169,7 @@ const deleteDoc = async (req, res) => {
       }
     } catch (err) {
       console.log(err);
+      logger.warn(`Invalid request ${method} ${protocol}://${hostname}${originalUrl}`);
       return res.status(400).send({ status: "Bad request!" });
     }
     return res.status(204).send();
