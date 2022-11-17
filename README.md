@@ -143,6 +143,15 @@ This cloud-native web appilcation RESTful API mirror the API mentioned in the [S
       readOnly: true
   }
 ```
+
+### :key: Verify Users
+
+- **GET** _/v1/verifyUserEmail/email=user@example.com&token=sometoken : Get user verified   
+ 
+  - **Response:** 200 _OK_, **Media Type:** Application/JSON
+  - **Response:** 401 _Unauthorized_
+  - **Response:** 403 _BadRequest_
+
 ## :test_tube: Testing
 
 To run the test suite, use the following commands:
@@ -166,4 +175,4 @@ To run the test suite, use the following commands:
 ```
 
 ## 👨🏻‍💻 Author 
- Jeel Patel (2928075)
+ Jeel Patel
