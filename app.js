@@ -22,7 +22,7 @@ app.use("/", userRoute);
 app.use("/", docRoute);
 
 // PORT
-const PORT = 3000;
+const PORT = process.env.PORT;
 db.sequelize.sync();
 // STARTING A SERVER
 app.listen(PORT, () => console.log(`app listening on port ${PORT}`));
