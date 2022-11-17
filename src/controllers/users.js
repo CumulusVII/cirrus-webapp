@@ -323,6 +323,16 @@ exports.fetchUserData = async (req, res) => {
 // };
 
 exports.verifyUser = async (req, res) => {
+  sdc.increment("endpoint.verify.user");
+  const { protocol, method, hostname, originalUrl } = req;
+    const headers = { ...req.headers };
+    const payload = { protocol, method, hostname, originalUrl, headers };
+    logger.info(
+      `Requesting ${method} ${protocol}://${hostname}${originalUrl}`,
+      {
+        payload,
+      }
+    );
   const user = await User.findOne({
     where: {
       username: req.query.email,
@@ -331,7 +341,7 @@ exports.verifyUser = async (req, res) => {
   if (user) {
     if (user.dataValues.verified) {
       res.status(202).send({
-        message: "Already Successfully Verified!",
+        message: "Successfully Verified!",
       });
     } else {
       const params = {
