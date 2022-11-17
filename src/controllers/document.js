@@ -76,7 +76,7 @@ const listDocs = async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
-        username: global.username,
+        username: req.user.username,
       },
     });
     const { id } = userData;
@@ -113,7 +113,7 @@ const getDocumentDetails = async (req, res) => {
   try {
     const userData = await User.findOne({
       where: {
-        username: global.username,
+        username: req.user.username,
       },
     });
     const { id } = userData;
