@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build AWS Custom AMI with Node Application artifacts
     steps:
-      - name: Step 1 - Checkout code from branch
+      - name: Checkout code from branch
         uses: actions/checkout@v2
       - name: 'Create .env file'
         run: |
@@ -52,31 +52,31 @@ jobs:
           echo DATABASE=${{ secrets.DATABASE }} >> .env
           echo DBUSER=${{ secrets.DBUSER }} >> .env
           echo DBPASSWORD=${{ secrets.DBPASSWORD }} >> .env
-      - name: Step 2 - zip all the webapp files
+      - name: Zip all the webapp files
         run: |
           zip -r webapp.zip ./
           pwd ./webapp
-      - name: Step 3 - Configure AWS Credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_DEV_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_DEV_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
-      - name: Step 4 - Packer Init
+ 
+      - name: Packer Init
         uses: hashicorp/packer-github-actions@master
         with:
           command: init
           target: ami.pkr.hcl
 
-      - name: Step 5 - Validate Packer Template
+      - name: Validate Packer Template
         uses: hashicorp/packer-github-actions@master
         with:
           command: validate
           arguments: -syntax-only
           target: ami.pkr.hcl
 
-      - name: Step 6 - Build Artifacts and create Custom AMI from Packer Build
+      - name: Build Artifacts and create Custom AMI from Packer Build
         uses: hashicorp/packer-github-actions@master
         with:
           command: build
@@ -84,7 +84,7 @@ jobs:
           target: ami.pkr.hcl
         env:
           PACKER_LOG: 1
-      - name: Step 7 - Configure AWS Credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_PROD_ACCESS_KEY_ID }}
@@ -93,8 +93,8 @@ jobs:
       - name: Step 8 - Instance Refresh 
         run: | 
           sudo apt-get install -y jq
-          ASG_NAME={{secrets.ASG_NAME}}
-          LAUNCH_CONFIG={{secrets.LAUNCH_CONFIG}}
+          ASG_NAME=${{ secrets.ASG_NAME }}
+          LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG }}
           echo ASG_NAME=${{ secrets.ASG_NAME }}
           echo LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG}}
           IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
