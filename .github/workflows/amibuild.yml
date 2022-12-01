@@ -92,29 +92,22 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Instance Refresh 
         run: | 
-          sudo apt-get install -y jq
+          sudo apt-get install jq
           ASG_NAME=${{ secrets.ASG_NAME }}
           LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG }}
-          echo ASG_NAME=${{ secrets.ASG_NAME }}
-          echo LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG}}
           IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
-
           IMAGE_ID=$(jq -n \
             --arg img "$IMAGE" \
             '{"ImageId": $img}')
-
           aws ec2 create-launch-template-version \
             --launch-template-name "$LAUNCH_CONFIG" \
             --version-description updateAMI --source-version 1 \
             --launch-template-data="$IMAGE_ID"
-            
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name $ASG_NAME \
             --launch-template LaunchTemplateName="$LAUNCH_CONFIG",Version='$Latest'
-            
           aws autoscaling start-instance-refresh \
             --auto-scaling-group-name $ASG_NAME
-
-          printf "\nInstance refresh in progress ...\n"
+          printf "Instance refresh in progress"
           while true;
           do
             instance_refresh_status=$(aws autoscaling describe-instance-refreshes --auto-scaling-group-name $ASG_NAME \
@@ -124,7 +117,7 @@ jobs:
               break
             fi
             if [ "$instance_refresh_status" = "Cancelling" ] || [ "$instance_refresh_status" = "Cancelled" ] || [ "$instance_refresh_status" = "Failed" ]; then
-              printf "\nInstance refresh failed!"
+              echo "\nInstance refresh failed!"
               exit 1
             fi
             echo -ne "."
