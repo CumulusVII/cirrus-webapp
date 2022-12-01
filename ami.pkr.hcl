@@ -27,12 +27,16 @@ variable "subnet_id" {
 source "amazon-ebs" "ec2" {
   region          = "${var.aws_region}"
   ami_name        = "csye6225_${formatdate("YYYY_MM_DD_hh_mm_ss", timestamp())}"
-  ami_description = "EC2 AMI for CSYE 6225 built by jeelpatel"
+  ami_description = "EC2 AMI for CSYE 6225 built by Jeel Patel"
   ami_regions = [
     "us-east-1",
   ]
   ami_users = [603832434033]
-
+  tags = {
+    Base_AMI_ID = "${var.source_ami}"
+    OS_Version  = "Ubuntu"
+    Release     = "22.04 LTS"
+  }
   aws_polling {
     delay_seconds = 120
     max_attempts  = 50
@@ -63,7 +67,7 @@ build {
   provisioner "file" {
     source      = "webservice.service"   # path in local system to a .tar file
     destination = "~/webservice.service" # path in the AMI to store the webapp
-}
+  }
 
 
   provisioner "shell" {
@@ -75,5 +79,9 @@ build {
       "setup.sh",
       "after.sh"
     ]
+  }
+  post-processor "manifest" {
+    output     = "manifest.json"
+    strip_path = true
   }
 }

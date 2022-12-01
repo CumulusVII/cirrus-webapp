@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 // CUSTOM ROUTES
-const healthzRoute = require("./src/routes/healthz");
+const healthRoute = require("./src/routes/healthz");
 const userRoute = require("./src/routes/user");
 const docRoute = require("./src/routes/document");
 const db = require("./src/models");
@@ -17,7 +17,7 @@ app.use(
 );
 
 //MIDDLEWARES
-app.use("/", healthzRoute);
+app.use("/", healthRoute);
 app.use("/", userRoute);
 app.use("/", docRoute);
 

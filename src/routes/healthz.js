@@ -10,8 +10,8 @@ const sdc = new SDC({
 
 
 // ROUTES
-router.get("/healthz", (req, res) => {
-  sdc.increment("endpoint.healthz");
+router.get("/health", (req, res) => {
+  sdc.increment("endpoint.health");
   const {protocol,method,hostname,originalUrl} = req
   const headers = {...req.headers}
   const data = {protocol,method,hostname,originalUrl,headers}
