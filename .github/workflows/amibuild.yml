@@ -92,10 +92,10 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Step 8 - Instance Refresh 
         run: | 
-         sudo apt install -y jq
-         ASG_NAME={{secrets.ASG_NAME}}
-         LAUNCH_CONFIG={{secrets.LAUNCH_CONFIG}}
-         IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
+          sudo apt-get install -y jq
+          ASG_NAME={{secrets.ASG_NAME}}
+          LAUNCH_CONFIG={{secrets.LAUNCH_CONFIG}}
+          IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
 
           IMAGE_ID=$(jq -n \
             --arg img "$IMAGE" \
