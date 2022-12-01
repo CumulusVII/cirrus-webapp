@@ -95,6 +95,8 @@ jobs:
           sudo apt-get install -y jq
           ASG_NAME={{secrets.ASG_NAME}}
           LAUNCH_CONFIG={{secrets.LAUNCH_CONFIG}}
+          echo ASG_NAME=${{ secrets.ASG_NAME }}
+          echo LAUNCH_CONFIG=${{ secrets.LAUNCH_CONFIG}}
           IMAGE=$(jq -r '.builds[-1].artifact_id' manifest.json | cut -d':' -f2)
 
           IMAGE_ID=$(jq -n \
