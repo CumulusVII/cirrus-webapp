@@ -12,9 +12,9 @@ const db = require("../models/index");
 const User = db.users
 const authorizeToken = require("../middlewares/auth")(User,logger);
 // ROUTES
-router.post("/v2/account/", createUser);
-router.get("/v2/account/:id", authorizeToken, fetchUserData);
-router.put("/v2/account/:id", authorizeToken, updateUser);
-router.get("/v2/verifyUserEmail",verifyUser)
+router.post("/v1/account/", createUser);
+router.get("/v1/account/:id", authorizeToken, fetchUserData);
+router.put("/v1/account/:id", authorizeToken, updateUser);
+router.get("/v1/verifyUserEmail",verifyUser)
 
 module.exports = router;
