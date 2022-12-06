@@ -173,6 +173,5 @@ To run the test suite, use the following commands:
   #for npm users
   npm run test
 ```
-
 ## 👨🏻‍💻 Author 
  Jeel Patel
