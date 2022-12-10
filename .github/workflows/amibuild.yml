@@ -99,12 +99,12 @@ jobs:
           IMAGE_ID=$(jq -n \
             --arg img "$IMAGE" \
             '{"ImageId": $img}')
-          TEMPLATE_VERSION=$(aws ec2 describe-launch-template-versions --launch-template-name="$LAUNCH_CONFIG" --filters="Name=is-default-version,Values=false" \
           --query 'sort_by(LaunchTemplateVersions, &CreateTime)[-1].[VersionNumber]' --output text)
           aws ec2 create-launch-template-version \
             --launch-template-name "$LAUNCH_CONFIG" \
             --version-description updateAMI --source-version 1 \
             --launch-template-data="$IMAGE_ID"
+          TEMPLATE_VERSION=$(aws ec2 describe-launch-template-versions --launch-template-name="$LAUNCH_CONFIG" --filters="Name=is-default-version,Values=false" \
           aws autoscaling update-auto-scaling-group --auto-scaling-group-name $ASG_NAME \
             --launch-template LaunchTemplateName="$LAUNCH_CONFIG",Version=$TEMPLATE_VERSION
           aws autoscaling start-instance-refresh \
