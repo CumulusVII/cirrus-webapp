@@ -1,4 +1,4 @@
-# :cloud: cirrus-webapp [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) 
+# :cloud: cirrus-webapp [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE) [![Build AMI Test](https://github.com/cloud-cirrus/webapp/actions/workflows/amibuild.yml/badge.svg)](https://github.com/cloud-cirrus/webapp/actions/workflows/amibuild.yml)
 
 ## :wrench: Prerequisites
 
